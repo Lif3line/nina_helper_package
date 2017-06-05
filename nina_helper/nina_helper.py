@@ -276,18 +276,25 @@ def gen_split_rand(rep_ids, nb_test, nb_splits, base=None):
     return train_reps, test_reps
 
 
-def normalise_emg(emg, reps, train_reps):
+def normalise_emg(emg, reps, train_reps, movements=None, which_moves=None):
     """Preprocess train+test data to mean 0, std 1 based on training data only.
 
     Args:
         emg (array): Raw EMG data
         reps (array): Corresponding repetition information for each EMG observation
         train_reps (array): Which repetitions are in the training set
+        movements (array, optional): Movement labels, required if using which_moves
+        which_moves (array, optional): Which movements to return - if None use all
 
     Returns:
         array: Rescaled EMG data
     """
     train_targets = get_idxs(reps, train_reps)
+
+    # Keep only selected movement(s)
+    if which_moves is not None and movements is not None:
+        move_targets = get_idxs(movements[train_targets], which_moves)
+        train_targets = train_targets[move_targets]
 
     scaler = StandardScaler(with_mean=True,
                             with_std=True,
