@@ -105,7 +105,7 @@ def import_db2(folder_path, subject, rest_length_cap=5):
     """
     fs = 2000
 
-    data = sio.loadmat(folder_path + 'S' + str(subject) + '_E1_A1.mat')
+    data = sio.loadmat(folder_path + '/S' + str(subject) + '_E1_A1.mat')
     emg = np.squeeze(np.array(data['emg']))
     rep = np.squeeze(np.array(data['rerepetition']))
     move = np.squeeze(np.array(data['restimulus']))
