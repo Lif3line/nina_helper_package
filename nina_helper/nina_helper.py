@@ -1,5 +1,6 @@
 """Utility functions to help with working with NinaPro database."""
 
+import os
 import numpy as np
 import scipy.io as sio
 from sklearn.preprocessing import StandardScaler
@@ -20,19 +21,22 @@ def import_db1(folder_path, subject, rest_length_cap=5):
     """
     fs = 100
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_A1_E1.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_A1_E1.mat')
+    data = sio.loadmat(cur_path)
     emg = np.squeeze(np.array(data['emg']))
     rep = np.squeeze(np.array(data['rerepetition']))
     move = np.squeeze(np.array(data['restimulus']))
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_A1_E2.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_A1_E2.mat')
+    data = sio.loadmat(cur_path)
     emg = np.vstack((emg, np.array(data['emg'])))
     rep = np.append(rep, np.squeeze(np.array(data['rerepetition'])))
     move_tmp = np.squeeze(np.array(data['restimulus']))  # Fix for numbering
     move_tmp[move_tmp != 0] += max(move)
     move = np.append(move, move_tmp)
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_A1_E3.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_A1_E3.mat')
+    data = sio.loadmat(cur_path)
     emg = np.vstack((emg, np.array(data['emg'])))
     rep = np.append(rep, np.squeeze(np.array(data['rerepetition'])))
     move_tmp = np.squeeze(np.array(data['restimulus']))  # Fix for numbering
@@ -105,18 +109,21 @@ def import_db2(folder_path, subject, rest_length_cap=5):
     """
     fs = 2000
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_E1_A1.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_E1_A1.mat')
+    data = sio.loadmat(cur_path)
     emg = np.squeeze(np.array(data['emg']))
     rep = np.squeeze(np.array(data['rerepetition']))
     move = np.squeeze(np.array(data['restimulus']))
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_E2_A1.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_E2_A1.mat')
+    data = sio.loadmat(cur_path)
     emg = np.vstack((emg, np.array(data['emg'])))
     rep = np.append(rep, np.squeeze(np.array(data['rerepetition'])))
     move_tmp = np.squeeze(np.array(data['restimulus']))
     move = np.append(move, move_tmp)  # Note no fix needed for this exercise
 
-    data = sio.loadmat(folder_path + '/S' + str(subject) + '_E3_A1.mat')
+    cur_path = os.path.normpath(folder_path + '/S' + str(subject) + '_E3_A1.mat')
+    data = sio.loadmat(cur_path)
     emg = np.vstack((emg, np.array(data['emg'])))
     data['repetition'][-1] = 0  # Fix for diffing
     rep = np.append(rep, np.squeeze(np.array(data['repetition'])))
