@@ -1,6 +1,8 @@
 # NINAPRO Utilities
 Functions for helping work with NINAPRO databases 1 and 2.
 
+** Frozen for legacy code: see [here](https://github.com/Lif3line/nina_helper_package_mk2) for build with additional features but same core functionality **
+
 ## Usage
 Add this package either to python's path or put the script in your working directory. Then ensure you have a folder somewhere with all the raw mat files downloadable from [here](http://ninapro.hevs.ch/).
 
